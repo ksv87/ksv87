@@ -1,5 +1,5 @@
 - 👋 Hi, I’m @ksv87
-- 👀 I’m interested in development on C++, Go, Python, Rust, Java, JavaScript, C#. Also CI/CD, Cryptography, REST JSON / SOAP XML, System Administration, Network. 
+- 👀 I’m interested in development on C++, Go, Python, Java, C#. Also CI/CD, Cryptography, REST JSON / SOAP XML, System Administration, Network. 
 - 🌱 I’m currently learning C++
 - 💞️ I’m looking to collaborate on ...
 - 📫 How to reach me ...
