@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Сергей (ksv87) — системный разработчик: C/C++, компьютерное зрение, Flutter, Go. Портфолио проектов.">
+<title>Сергей — Developer</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    min-height: 100vh;
+    background: #0a0a1a;
+    color: #e8e6f0;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* BG orbs */
+  .orbs { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .orb { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.35; }
+  .orb1 { width: 500px; height: 500px; background: #4f46e5; top: -100px; left: -100px; animation: drift1 12s ease-in-out infinite alternate; }
+  .orb2 { width: 400px; height: 400px; background: #0ea5e9; bottom: 10%; right: -80px; animation: drift2 10s ease-in-out infinite alternate; }
+  .orb3 { width: 300px; height: 300px; background: #8b5cf6; top: 50%; left: 40%; animation: drift1 14s ease-in-out infinite alternate-reverse; }
+  @keyframes drift1 { to { transform: translate(60px, 40px); } }
+  @keyframes drift2 { to { transform: translate(-40px, -60px); } }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: .9rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(10,10,26,0.6);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .logo { font-size: 1.1rem; font-weight: 700; letter-spacing: .02em; color: #c4b5fd; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: .88rem; transition: color .2s; }
+  .nav-links a:hover { color: #e8e6f0; }
+
+  /* LAYOUT */
+  .page { position: relative; z-index: 1; }
+  section { max-width: 960px; margin: 0 auto; padding: 5rem 2rem; }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+  .hero-card {
+    padding: 3.5rem 3rem;
+    max-width: 640px;
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 28px;
+  }
+  .avatar {
+    width: 96px; height: 96px; border-radius: 50%;
+    background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.4rem; margin: 0 auto 1.5rem;
+    border: 2px solid rgba(255,255,255,0.15);
+  }
+  .badge {
+    display: inline-block; margin-bottom: 1.2rem;
+    padding: .3rem .9rem; border-radius: 99px;
+    background: rgba(139,92,246,0.15);
+    border: 1px solid rgba(139,92,246,0.35);
+    font-size: .78rem; color: #c4b5fd; letter-spacing: .06em;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.1; margin-bottom: .8rem; }
+  h1 span { background: linear-gradient(135deg, #818cf8, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .tagline { color: rgba(255,255,255,0.5); font-size: 1rem; margin-bottom: 2rem; }
+  .hero-btns { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    padding: .65rem 1.6rem; border-radius: 12px; font-size: .9rem; font-weight: 600;
+    text-decoration: none; cursor: pointer; transition: all .2s; border: none;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+    color: #fff;
+  }
+  .btn-primary:hover { opacity: .85; transform: translateY(-2px); }
+  .btn-outline {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+  /* SECTION HEADER */
+  .sec-label { font-size: .75rem; letter-spacing: .15em; color: #818cf8; text-transform: uppercase; margin-bottom: .4rem; }
+  h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 1.8rem; }
+  h3.group-title { font-size: 1.05rem; font-weight: 600; color: rgba(255,255,255,0.55); margin: 2.2rem 0 1rem; letter-spacing: .03em; }
+  h3.group-title:first-of-type { margin-top: 0; }
+
+  /* ABOUT */
+  .about-wrap { display: grid; gap: 1rem; }
+  .about-text {
+    padding: 1.8rem 2rem;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    color: rgba(255,255,255,0.65); font-size: 1rem; line-height: 1.85;
+  }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  .stat {
+    text-align: center; padding: 1.4rem 1rem;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+  }
+  .stat-num { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #818cf8, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat-lbl { font-size: .75rem; color: rgba(255,255,255,0.4); margin-top: .3rem; }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+  .project {
+    display: flex; flex-direction: column; gap: .7rem;
+    padding: 1.5rem 1.6rem; border-radius: 18px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all .2s;
+    text-decoration: none; color: inherit;
+  }
+  .project:hover { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.22); transform: translateY(-3px); }
+  .project-head { display: flex; align-items: center; justify-content: space-between; gap: .6rem; }
+  .project-name { font-weight: 700; font-size: 1.02rem; color: #e8e6f0; }
+  a.project .project-name { background: linear-gradient(135deg, #818cf8, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .project-badge {
+    flex-shrink: 0; padding: .15rem .6rem; border-radius: 99px;
+    font-size: .68rem; letter-spacing: .05em; white-space: nowrap;
+  }
+  .badge-oss { background: rgba(16,185,129,0.14); border: 1px solid rgba(16,185,129,0.35); color: #6ee7b7; }
+  .badge-private { background: rgba(244,114,182,0.12); border: 1px solid rgba(244,114,182,0.3); color: #f9a8d4; }
+  .project-desc { font-size: .88rem; color: rgba(255,255,255,0.55); line-height: 1.65; flex-grow: 1; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+  .tag {
+    padding: .14rem .6rem; border-radius: 8px; font-size: .72rem;
+    background: rgba(129,140,248,0.12);
+    border: 1px solid rgba(129,140,248,0.25);
+    color: #a5b4fc;
+  }
+  .oss-note { font-size: .82rem; color: rgba(255,255,255,0.35); margin-top: 1rem; }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: .7rem; }
+  .chip {
+    display: flex; align-items: center; gap: .55rem;
+    padding: .65rem 1rem; border-radius: 12px; font-size: .88rem;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all .2s; cursor: default;
+  }
+  .chip:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* CONTACTS */
+  .contacts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+  .contact {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1.1rem 1.4rem; border-radius: 16px; text-decoration: none; color: #e8e6f0;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all .2s;
+  }
+  .contact:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); transform: translateY(-3px); }
+  .ci { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+  .cn { font-weight: 600; font-size: .9rem; }
+  .cv { font-size: .78rem; color: rgba(255,255,255,0.4); }
+
+  footer { text-align: center; padding: 2rem; color: rgba(255,255,255,0.2); font-size: .82rem; border-top: 1px solid rgba(255,255,255,0.06); }
+
+  @media (max-width: 600px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    nav { padding: .9rem 1.2rem; }
+    .nav-links { gap: 1.1rem; }
+    .hero-card { padding: 2.5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="orbs">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+
+<nav>
+  <div class="logo">// Сергей</div>
+  <ul class="nav-links">
+    <li><a href="#about">О себе</a></li>
+    <li><a href="#projects">Проекты</a></li>
+    <li><a href="#skills">Навыки</a></li>
+    <li><a href="#contacts">Контакты</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+
+  <section id="hero">
+    <div class="hero-card">
+      <div class="avatar">👨‍💻</div>
+      <div class="badge">✦ Системная разработка · CV · Embedded</div>
+      <h1>Привет, я <span>Сергей</span></h1>
+      <p class="tagline">Системный разработчик: от низкоуровневого C/C++ до компьютерного зрения и кроссплатформенных приложений на Flutter.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-primary">Портфолио</a>
+        <a href="https://github.com/ksv87" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="sec-label">/ about me</div>
+    <h2>О себе</h2>
+    <div class="about-wrap">
+      <div class="about-text">
+        Системный разработчик с 10+ годами опыта. Работаю с C++, Python, C#, Go и смежными технологиями — от низкоуровневого C API до кроссплатформенных приложений на Flutter. Интересуюсь криптографией, REST/SOAP интеграциями, сетями и системным администрированием. Активно развиваюсь в области компьютерного зрения: разрабатываю и внедряю детекторы объектов — от обучения моделей до деплоя на мобильных и embedded-устройствах.
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="stat-num">10+</div><div class="stat-lbl">лет опыта</div></div>
+        <div class="stat"><div class="stat-num">15+</div><div class="stat-lbl">проектов в штате</div></div>
+        <div class="stat"><div class="stat-num">3</div><div class="stat-lbl">open source проекта</div></div>
+        <div class="stat"><div class="stat-num">∞</div><div class="stat-lbl">чашек кофе ☕</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="sec-label">/ portfolio</div>
+    <h2>Проекты</h2>
+
+    <h3 class="group-title">Open source</h3>
+    <div class="projects-grid">
+      <a class="project" href="https://github.com/ksv87/CryptoToolsGOST" target="_blank" rel="noopener">
+        <div class="project-head">
+          <div class="project-name">CryptoToolsGOST</div>
+          <div class="project-badge badge-oss">open source</div>
+        </div>
+        <div class="project-desc">
+          Криптографический тулкит на базе OpenSSL: генерация ключей, подпись, гибридное шифрование, JWT/JWE, X.509, XMLDSig. Полная поддержка ГОСТ (engine и provider) наряду с RSA/EC/Ed25519. Две совместимые CLI-реализации (Python и C++), C++ библиотека libctgost, общий набор интеграционных тестов.
+        </div>
+        <div class="project-tags"><span class="tag">C++20</span><span class="tag">Python</span><span class="tag">OpenSSL</span><span class="tag">ГОСТ</span><span class="tag">Meson</span></div>
+      </a>
+
+      <a class="project" href="https://github.com/ksv87/CVModelLab" target="_blank" rel="noopener">
+        <div class="project-head">
+          <div class="project-name">CV Model Lab</div>
+          <div class="project-badge badge-oss">open source</div>
+        </div>
+        <div class="project-desc">
+          Кроссплатформенный инструмент анализа COCO-датасетов и ошибок детекции объектов: TP/FP/FN-матчинг, метрики по классам, худшие кейсы, health-check датасета, сравнение двух моделей и экспортируемые отчёты. Flutter Desktop + PWA, работает без бэкенда.
+        </div>
+        <div class="project-tags"><span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">Computer Vision</span><span class="tag">COCO</span></div>
+      </a>
+
+      <a class="project" href="https://github.com/ksv87/vid2frames" target="_blank" rel="noopener">
+        <div class="project-head">
+          <div class="project-name">vid2frames</div>
+          <div class="project-badge badge-oss">open source</div>
+        </div>
+        <div class="project-desc">
+          CLI-инструмент извлечения кадров из видео через FFmpeg: пять режимов выборки (fps, интервалы, каждый N-й кадр, равномерное количество, все кадры), пакетная обработка каталогов, JPG/PNG/WEBP. Zero-install сборки с бандлом FFmpeg для Windows и Linux. Чистая стандартная библиотека Go.
+        </div>
+        <div class="project-tags"><span class="tag">Go</span><span class="tag">FFmpeg</span><span class="tag">CLI</span></div>
+      </a>
+    </div>
+
+    <h3 class="group-title">Закрытые проекты</h3>
+    <div class="projects-grid">
+      <div class="project">
+        <div class="project-head">
+          <div class="project-name">Detection SDK</div>
+          <div class="project-badge badge-private">closed source</div>
+        </div>
+        <div class="project-desc">
+          Кроссплатформенный C++ SDK детекции и трекинга объектов с единым C API. Сменные инференс-бэкенды: ONNX Runtime, OpenVINO, OpenCV DNN, RKNN Toolkit и NOE SDK (NPU). Поддержка сетей семейств YOLOX, DAMO-YOLO, NanoDet и torchvision-детекторов, трекинг BYTE Track. Сборки под Windows, Linux (x86_64 и arm64), macOS, Android и iOS; версионированные релизы, CI и автодокументация.
+        </div>
+        <div class="project-tags"><span class="tag">C++</span><span class="tag">C API</span><span class="tag">ONNX Runtime</span><span class="tag">OpenVINO</span><span class="tag">OpenCV</span><span class="tag">RKNN</span><span class="tag">NOE</span><span class="tag">NPU / Edge</span><span class="tag">BYTE Track</span><span class="tag">Windows</span><span class="tag">Linux x86_64 / arm64</span><span class="tag">macOS</span><span class="tag">Android NDK</span><span class="tag">iOS</span><span class="tag">CMake</span><span class="tag">CI/CD</span></div>
+      </div>
+
+      <div class="project">
+        <div class="project-head">
+          <div class="project-name">Flutter Detector</div>
+          <div class="project-badge badge-private">closed source</div>
+        </div>
+        <div class="project-desc">
+          Кроссплатформенное мобильное приложение (Android и iOS) реалтайм-детекции объектов с камеры: Flutter UI, на Android — переиспользуемый AAR-модуль с Kotlin API, CameraX-пайплайн и JNI-мост к нативному Detection SDK, на iOS — нативная интеграция того же SDK. Инференс на ONNX Runtime с XNNPACK, нативная конвертация кадров, оверлей детекций и трекинга поверх превью в реальном времени на мобильном CPU.
+        </div>
+        <div class="project-tags"><span class="tag">Flutter</span><span class="tag">Android</span><span class="tag">iOS</span><span class="tag">Kotlin / JNI</span><span class="tag">CameraX</span><span class="tag">ONNX Runtime</span></div>
+      </div>
+
+      <div class="project">
+        <div class="project-head">
+          <div class="project-name">Исследования YOLO / DAMO-YOLO</div>
+          <div class="project-badge badge-private">research</div>
+        </div>
+        <div class="project-desc">
+          Эксперименты с детекторами семейства YOLO: YOLOX и производные, DAMO-YOLO, Ultralytics, MIT YOLO. Дообучение под прикладные датасеты, квантизация и конвертация моделей для edge-инференса, сравнение архитектур по точности и скорости. Часть наработок принята в апстрим открытых проектов.
+        </div>
+        <div class="project-tags"><span class="tag">PyTorch</span><span class="tag">YOLOX</span><span class="tag">DAMO-YOLO</span><span class="tag">Edge AI</span></div>
+      </div>
+    </div>
+
+    <div class="oss-note">Закрытые проекты разработаны в рамках коммерческих задач — код не публикуется, описания приведены в общем виде.</div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-label">/ skills & stack</div>
+    <h2>Навыки</h2>
+    <div class="skills-grid">
+      <div class="chip"><div class="dot" style="background:#00599c"></div>C++ / C API</div>
+      <div class="chip"><div class="dot" style="background:#3572a5"></div>Python</div>
+      <div class="chip"><div class="dot" style="background:#00add8"></div>Go</div>
+      <div class="chip"><div class="dot" style="background:#9b4f96"></div>C#</div>
+      <div class="chip"><div class="dot" style="background:#54c5f8"></div>Dart / Flutter</div>
+      <div class="chip"><div class="dot" style="background:#a97bff"></div>Kotlin / JNI</div>
+      <div class="chip"><div class="dot" style="background:#ff6f00"></div>CV / Object Detection</div>
+      <div class="chip"><div class="dot" style="background:#ee4c2c"></div>PyTorch / ONNX</div>
+      <div class="chip"><div class="dot" style="background:#721412"></div>OpenSSL / ГОСТ</div>
+      <div class="chip"><div class="dot" style="background:#5c8dbc"></div>OpenCV</div>
+      <div class="chip"><div class="dot" style="background:#0db7ed"></div>Docker</div>
+      <div class="chip"><div class="dot" style="background:#f7c948"></div>Linux / Embedded</div>
+      <div class="chip"><div class="dot" style="background:#064f8c"></div>CMake / Meson</div>
+      <div class="chip"><div class="dot" style="background:#f05033"></div>Git / CI</div>
+    </div>
+  </section>
+
+  <section id="contacts">
+    <div class="sec-label">/ contacts</div>
+    <h2>Контакты</h2>
+    <div class="contacts-grid">
+      <a href="https://github.com/ksv87" class="contact" target="_blank" rel="noopener">
+        <div class="ci" style="background:rgba(255,255,255,0.07);">🐙</div>
+        <div><div class="cn">GitHub</div><div class="cv">github.com/ksv87</div></div>
+      </a>
+    </div>
+  </section>
+
+  <footer>Сделано с ❤️ и крепким кофе · 2026</footer>
+
+</div>
+</body>
+</html>
